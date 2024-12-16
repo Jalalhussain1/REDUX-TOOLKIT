@@ -3,9 +3,18 @@ import './style.css'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import CartsData from './CartData';
+import  { addToCart } from '../redux/feature/cartSlice'
+import {useDispatch}  from 'react-redux'
 
 const Home = () => {
-  const [CartData, setCartDat] = useState(CartsData)
+  const [CartData, setCartData] = useState(CartsData)
+  const dispatch  = useDispatch();
+
+
+  // add to cart
+  const send = (e)=> {
+    dispatch( addToCart(e))
+  }
   return (
     <>
       <section className='items_section mt-4 container'>
@@ -32,6 +41,7 @@ const Home = () => {
                         <img src={element.arrimg} className='limg ' />
                         <Button style={{ width: '150px', background: '#ff3054db', border: 'none' }} variant='outline-light'
                           className='mt-2 mb-2'
+                          onClick={() =>send(element)}
                         >Add to Cart</Button>
                         <img src={element.delimg} className='laimg ' />
                       </div>

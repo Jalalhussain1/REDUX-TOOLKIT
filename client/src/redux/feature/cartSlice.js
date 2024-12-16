@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit'
 
 const initialState  ={
-    arr:[]
+    carts:[]
 }
 // cart slice
 const cartSlice = createSlice({
@@ -11,6 +11,7 @@ const cartSlice = createSlice({
          
         //add to cart
         addToCart:(state,action) => {
+          state.carts = [...state.carts,action.payload]
 
         }
     }
