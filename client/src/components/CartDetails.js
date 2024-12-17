@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Cartstyle.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, removeToCart,removeSingleIteams,emptycartIteam } from '../redux/feature/cartSlice';
 
 const CartDetails = () => {
   const { carts } = useSelector((state) => state.carts);
+
+  const [totalPrice,setTotalPrice] = useState(0);
+  const [totalQuantity,setTotalQuantity] = useState(0);
 
   const dispatch = useDispatch();
 
@@ -27,6 +30,32 @@ const CartDetails = () => {
   const emptycart = () => {
     dispatch(emptycartIteam());
   }
+
+  // total price
+  const total = ()=>{
+    let totalPrice = 0
+    carts.map((ele,ind)  => {
+      totalPrice = ele.price * ele.qnty + totalPrice
+    })
+    setTotalPrice(totalPrice)
+  }
+
+  // total quantity
+  const countquantity = ()=>{
+    let totalQuantity = 0
+    carts.map((ele,ind)  => {
+      totalQuantity = ele.qnty  + totalQuantity
+    })
+    setTotalQuantity(totalQuantity)
+  }
+
+  useEffect(() => {
+    countquantity();
+},[countquantity])
+
+  useEffect(() => {
+       total()
+  },[total])
 
 
   return (
@@ -110,8 +139,8 @@ const CartDetails = () => {
                   <tr>
                     <th>&nbsp;</th>
                     <th colSpan={3}>&nbsp;</th>
-                    <th>Items In Cart <span className='ml-2 mr-2'>:</span><spa className='text-danger'>4</spa></th>
-                    <th className='text-right'>Total Amount <span className='ml-2 mr-2'>:</span><spa className='text-danger'>4</spa></th>
+                    <th>Items In Cart <span className='ml-2 mr-2'>:</span><spa className='text-danger'>{totalQuantity}</spa></th>
+                    <th className='text-right'>Total Amount <span className='ml-2 mr-2'>:</span><spa className='text-danger'>{totalPrice}</spa></th>
                   </tr>
                 </tfoot>
               </table>
