@@ -1,7 +1,7 @@
 import React from 'react';
 import './Cartstyle.css'
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, removeToCart } from '../redux/feature/cartSlice';
+import { addToCart, removeToCart,removeSingleIteams } from '../redux/feature/cartSlice';
 
 const CartDetails = () => {
   const { carts } = useSelector((state) => state.carts);
@@ -16,6 +16,11 @@ const CartDetails = () => {
   // remove to cart
   const handleDecrement = (e) => {
     dispatch(removeToCart(e))
+  }
+
+  // remove single item
+  const handleSingleDecrement = (e) =>{
+    dispatch(removeSingleIteams(e))
   }
 
 
@@ -83,7 +88,7 @@ const CartDetails = () => {
                       <td>{data.price}</td>
                       <td>
                         <div className='prdct-qty-container'>
-                          <button className='prdct-qty-btn' type='button'>
+                          <button className='prdct-qty-btn' type='button' onClick={()=>handleSingleDecrement(data)}>
                             <i className='fa fa-minus'></i>
                           </button>
                           <input type='text' className='qty-input-box' value={data.qnty} disabled name='' id='' />

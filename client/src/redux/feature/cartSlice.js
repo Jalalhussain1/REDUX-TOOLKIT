@@ -29,10 +29,18 @@ const cartSlice = createSlice({
     removeToCart:(state,action) => {
         const data = state.carts.filter((ele)=>ele.id  !== action.payload);
         state.carts = data
+    },
+    // remove single item
+    removeSingleIteams:(state,action) => {
+        const IteamIndex_dec = state.carts.findIndex((iteam) =>iteam.id === action.payload.id);
+
+        if(state.carts[IteamIndex_dec].qnty >=1) {
+            state.carts[IteamIndex_dec].qnty -= 1
+        }
     }
 
   },
 });
 
-export const { addToCart, removeToCart } = cartSlice.actions;
+export const { addToCart, removeToCart,removeSingleIteams } = cartSlice.actions;
 export default cartSlice.reducer;
