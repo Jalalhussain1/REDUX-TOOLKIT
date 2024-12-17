@@ -1,7 +1,7 @@
 import React from 'react';
 import './Cartstyle.css'
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, removeToCart,removeSingleIteams } from '../redux/feature/cartSlice';
+import { addToCart, removeToCart,removeSingleIteams,emptycartIteam } from '../redux/feature/cartSlice';
 
 const CartDetails = () => {
   const { carts } = useSelector((state) => state.carts);
@@ -23,6 +23,11 @@ const CartDetails = () => {
     dispatch(removeSingleIteams(e))
   }
 
+  // clear cart
+  const emptycart = () => {
+    dispatch(emptycartIteam());
+  }
+
 
   return (
     <>
@@ -32,7 +37,7 @@ const CartDetails = () => {
             <div className='card-header bg-dark p-3 d-flex justify-content-between align-items-center'>
               <h5 className='text-white m-0'>Cart Calculation{carts.length >0 ? `(${carts.length})` : ''}</h5>
               {carts.length > 0 ? (
-                <button className='btn btn-danger btn-sm'>
+                <button className='btn btn-danger btn-sm'  onClick={emptycart}>
                   <i className="fa-solid fa-trash"></i>
                   <span> Empty Cart</span>
                 </button>
@@ -88,7 +93,7 @@ const CartDetails = () => {
                       <td>{data.price}</td>
                       <td>
                         <div className='prdct-qty-container'>
-                          <button className='prdct-qty-btn' type='button' onClick={()=>handleSingleDecrement(data)}>
+                          <button className='prdct-qty-btn' type='button' onClick={data.qnty <=1 ?()=>handleDecrement(data.id):()=>handleSingleDecrement(data)}>
                             <i className='fa fa-minus'></i>
                           </button>
                           <input type='text' className='qty-input-box' value={data.qnty} disabled name='' id='' />

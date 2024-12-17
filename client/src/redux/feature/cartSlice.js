@@ -37,10 +37,14 @@ const cartSlice = createSlice({
         if(state.carts[IteamIndex_dec].qnty >=1) {
             state.carts[IteamIndex_dec].qnty -= 1
         }
+    },
+    // clear cart
+    emptycartIteam :(state,action) => {
+        state.carts = []
     }
 
   },
 });
 
-export const { addToCart, removeToCart,removeSingleIteams } = cartSlice.actions;
+export const { addToCart, removeToCart,removeSingleIteams,emptycartIteam } = cartSlice.actions;
 export default cartSlice.reducer;
