@@ -6,7 +6,7 @@ import {NavLink} from  'react-router-dom'
 
 const Headers = () => {
   const {carts} = useSelector((state)=>state.carts);
-  console.log(carts);
+
   return (
     <Navbar style={{height:'60px',background:'black',color:'white'}}>
     <Container>
